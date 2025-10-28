@@ -244,7 +244,7 @@ func TestMockStorageReset(t *testing.T) {
 	}
 
 	// Verify data is cleared
-	listed, err := mock.List(ctx)
+	listed, err = mock.List(ctx)
 	if err != nil {
 		t.Fatalf("List failed after reset: %v", err)
 	}
