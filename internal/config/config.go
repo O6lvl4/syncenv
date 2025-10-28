@@ -25,8 +25,8 @@ const (
 type Config struct {
 	Storage    StorageConfig    `yaml:"storage"`
 	Encryption EncryptionConfig `yaml:"encryption"`
-	EnvFile    string           `yaml:"env_file,omitempty"`    // Deprecated: use EnvFiles instead
-	EnvFiles   []string         `yaml:"env_files,omitempty"`   // Multiple files support
+	EnvFile    string           `yaml:"env_file,omitempty"`  // Deprecated: use EnvFiles instead
+	EnvFiles   []string         `yaml:"env_files,omitempty"` // Multiple files support
 }
 
 // StorageConfig holds storage-specific configuration
