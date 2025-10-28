@@ -8,15 +8,15 @@ Version-controlled environment variable management with cloud storage
 
 ## Overview
 
-**syncenv** is a CLI tool for managing environment variables across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud Storage).
+**syncenv** is a CLI tool for managing environment configuration files across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud Storage).
 
 ## Elevator Pitch (30 seconds)
 
-Ever struggled with "it works on v1.5 for me, but the new team member can't run it because they have the wrong environment variables"?
+Ever struggled with "it works on v1.5 for me, but the new team member can't run it because they have the wrong environment configuration files"?
 
-**syncenv** automatically syncs environment variables to/from AWS/Azure/GCP storage based on your Git tags and branches. With built-in encryption support, your entire team can safely share version-controlled environment configurations.
+**syncenv** automatically syncs environment configuration files to/from AWS/Azure/GCP storage based on your Git tags and branches. With built-in encryption support, your entire team can safely share version-controlled environment configurations.
 
-`git checkout v1.5` → `syncenv pull` — that's all it takes to get the right environment variables for that version.
+`git checkout v1.5` → `syncenv pull` — that's all it takes to get the right environment configuration files for that version.
 
 ## Features
 
@@ -50,13 +50,13 @@ go build -o syncenv ./cmd/syncenv
 # Initialize
 $ syncenv init
 
-# Push environment variables
+# Push environment configuration files
 $ git checkout v1.5
 $ syncenv push  # Automatically saves as v1.5
 
 $ syncenv push --tag v1.6  # Explicitly specify tag
 
-# Pull environment variables
+# Pull environment configuration files
 $ git checkout v1.5
 $ syncenv pull  # Automatically retrieves v1.5
 
@@ -163,8 +163,8 @@ gcloud auth application-default login
 | Command | Description |
 |---------|-------------|
 | `syncenv init` | Create configuration file |
-| `syncenv push [--tag TAG]` | Upload environment variables |
-| `syncenv pull [--tag TAG] [-f]` | Download environment variables |
+| `syncenv push [--tag TAG]` | Upload environment configuration files |
+| `syncenv pull [--tag TAG] [-f]` | Download environment configuration files |
 | `syncenv list` | List all stored versions |
 | `syncenv diff TAG1 TAG2` | Show differences between two versions |
 
@@ -173,7 +173,7 @@ gcloud auth application-default login
 - **Version-specific environments**: Maintain different configurations for v1.5, v1.6, etc.
 - **Team collaboration**: New team members can quickly get the right environment setup
 - **Multiple environments**: Different configurations for development, staging, production
-- **Debugging**: Easily switch to old versions with their correct environment variables
+- **Debugging**: Easily switch to old versions with their correct environment configuration files
 
 ## Security Considerations
 
