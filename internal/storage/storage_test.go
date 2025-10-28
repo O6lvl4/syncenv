@@ -216,11 +216,18 @@ func TestMockStorageReset(t *testing.T) {
 	ctx := context.Background()
 
 	// Upload some data
-	mock.Upload(ctx, "v1.0.0", []byte("data1"))
-	mock.Upload(ctx, "v2.0.0", []byte("data2"))
+	if err := mock.Upload(ctx, "v1.0.0", []byte("data1")); err != nil {
+		t.Fatalf("Upload failed: %v", err)
+	}
+	if err := mock.Upload(ctx, "v2.0.0", []byte("data2")); err != nil {
+		t.Fatalf("Upload failed: %v", err)
+	}
 
 	// Verify data exists
-	listed, _ := mock.List(ctx)
+	listed, err := mock.List(ctx)
+	if err != nil {
+		t.Fatalf("List failed: %v", err)
+	}
 	if len(listed) != 2 {
 		t.Errorf("Expected 2 items before reset, got %d", len(listed))
 	}
@@ -258,16 +265,16 @@ func TestMockStorageThreadSafety(t *testing.T) {
 			data := []byte("data" + string(rune('0'+n)))
 
 			// Upload
-			mock.Upload(ctx, tag, data)
+			_ = mock.Upload(ctx, tag, data)
 
 			// Download
-			mock.Download(ctx, tag)
+			_, _ = mock.Download(ctx, tag)
 
 			// Exists
-			mock.Exists(ctx, tag)
+			_, _ = mock.Exists(ctx, tag)
 
 			// List
-			mock.List(ctx)
+			_, _ = mock.List(ctx)
 
 			done <- true
 		}(i)
