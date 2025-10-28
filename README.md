@@ -8,7 +8,7 @@ Version-controlled environment variable management with cloud storage
 
 ## Overview
 
-**syncenv** is a CLI tool for managing environment configuration files across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud).
+**syncenv** is a CLI tool for managing environment configuration files across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud Storage).
 
 ## Elevator Pitch (30 seconds)
 
@@ -21,7 +21,7 @@ Ever struggled with "it works on v1.5 for me, but the new team member can't run 
 ## Features
 
 - **Git Integration**: Automatically detects current tag/branch
-- **Multi-Cloud**: Supports AWS S3, Azure Blob Storage, and Google Cloud
+- **Multi-Cloud**: Supports AWS S3, Azure Blob Storage, and Google Cloud Storage
 - **Multiple Files**: Manage multiple environment files simultaneously (`.env`, `.env.local`, `config/*.json`, etc.)
 - **Path Support**: Supports files in subdirectories with automatic directory creation
 - **Secure**: Optional AES-256-GCM encryption
@@ -273,7 +273,7 @@ syncenv/
 │   ├── storage/         # Cloud storage implementations
 │   │   ├── s3.go       # AWS S3
 │   │   ├── azure.go    # Azure Blob
-│   │   ├── gcs.go      # Google Cloud
+│   │   ├── gcs.go      # Google Cloud Storage
 │   │   └── mock.go     # Mock storage for testing
 │   └── cli/            # CLI commands
 ├── README.md           # This file (English)
@@ -300,6 +300,6 @@ For issues, questions, or feature requests, please open an issue on GitHub.
 **Project Status**: Production Ready ✅
 
 Successfully tested with:
-- ✅ Google Cloud
+- ✅ Google Cloud Storage
 - ✅ Azure Blob Storage
 - ⏳ AWS S3 (implementation complete, pending real-world testing)

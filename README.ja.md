@@ -21,7 +21,7 @@
 ## 特徴
 
 - **Git連携**: タグ/ブランチから自動判定
-- **マルチクラウド**: AWS S3、Azure Blob、Google Cloud対応
+- **マルチクラウド**: AWS S3、Azure Blob、Google Cloud Storage対応
 - **複数ファイル対応**: 複数の環境ファイルを同時に管理（`.env`、`.env.local`、`config/*.json`など）
 - **パスサポート**: サブディレクトリ内のファイルにも対応、ディレクトリ自動作成
 - **セキュア**: AES-256-GCM暗号化サポート
@@ -273,7 +273,7 @@ syncenv/
 │   ├── storage/         # クラウドストレージ実装
 │   │   ├── s3.go       # AWS S3
 │   │   ├── azure.go    # Azure Blob
-│   │   ├── gcs.go      # Google Cloud
+│   │   ├── gcs.go      # Google Cloud Storage
 │   │   └── mock.go     # テスト用モックストレージ
 │   └── cli/            # CLIコマンド
 ├── README.md           # 英語ドキュメント
@@ -320,6 +320,6 @@ syncenv pull  # v1.5の環境設定ファイルを自動取得
 **プロジェクトステータス**: プロダクション準備完了 ✅
 
 テスト済み:
-- ✅ Google Cloud
+- ✅ Google Cloud Storage
 - ✅ Azure Blob Storage
 - ⏳ AWS S3（実装完了、実環境テスト待ち）
