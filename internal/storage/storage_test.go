@@ -138,7 +138,10 @@ func TestMockStorageDelete(t *testing.T) {
 	}
 
 	// Verify exists
-	exists, _ := mock.Exists(ctx, tag)
+	exists, err := mock.Exists(ctx, tag)
+	if err != nil {
+		t.Fatalf("Exists failed: %v", err)
+	}
 	if !exists {
 		t.Fatal("Tag should exist after upload")
 	}
@@ -150,7 +153,10 @@ func TestMockStorageDelete(t *testing.T) {
 	}
 
 	// Verify doesn't exist
-	exists, _ = mock.Exists(ctx, tag)
+	exists, err = mock.Exists(ctx, tag)
+	if err != nil {
+		t.Fatalf("Exists failed: %v", err)
+	}
 	if exists {
 		t.Error("Tag should not exist after delete")
 	}

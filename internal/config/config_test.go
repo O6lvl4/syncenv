@@ -31,8 +31,10 @@ env_file: .env.test
 
 	// Change to temp directory
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	// Load config
 	cfg, err := Load()
@@ -84,8 +86,10 @@ encryption:
 	}
 
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	cfg, err := Load()
 	if err != nil {
@@ -119,8 +123,10 @@ env_file: .env
 	}
 
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	cfg, err := Load()
 	if err != nil {
@@ -136,8 +142,10 @@ env_file: .env
 func TestLoadConfigFileNotFound(t *testing.T) {
 	tmpDir := t.TempDir()
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	_, err := Load()
 	if err == nil {
@@ -156,8 +164,10 @@ func TestLoadConfigInvalidYAML(t *testing.T) {
 	}
 
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	_, err = Load()
 	if err == nil {
@@ -168,8 +178,10 @@ func TestLoadConfigInvalidYAML(t *testing.T) {
 func TestSaveConfig(t *testing.T) {
 	tmpDir := t.TempDir()
 	originalDir, _ := os.Getwd()
-	defer os.Chdir(originalDir)
-	os.Chdir(tmpDir)
+	defer func() { _ = os.Chdir(originalDir) }()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("Failed to change directory: %v", err)
+	}
 
 	cfg := &Config{
 		Storage: StorageConfig{

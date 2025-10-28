@@ -38,13 +38,13 @@ jobs:
       run: go mod download
 
     - name: Run tests
-      run: go test -v -race -coverprofile=coverage.out ./internal/...
+      run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./internal/...
 
     - name: Upload coverage to Codecov
       if: matrix.os == 'ubuntu-latest' && matrix.go == '1.23'
       uses: codecov/codecov-action@v4
       with:
-        file: ./coverage.out
+        file: ./coverage.txt
         flags: unittests
         name: codecov-syncenv
 

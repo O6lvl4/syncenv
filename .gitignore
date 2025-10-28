@@ -10,6 +10,7 @@ syncenv
 
 # Output of the go coverage tool
 *.out
+*.txt
 coverage.html
 
 # Dependency directories

@@ -95,7 +95,10 @@ func runPull(tagFlag string, force bool) error {
 			}
 			fmt.Print("Continue? (y/N): ")
 			var response string
-			fmt.Scanln(&response)
+			if _, err := fmt.Scanln(&response); err != nil {
+				fmt.Println("\nPull cancelled.")
+				return nil
+			}
 			if response != "y" && response != "Y" {
 				fmt.Println("Pull cancelled.")
 				return nil

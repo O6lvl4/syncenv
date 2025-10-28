@@ -170,15 +170,6 @@ func parseDataToEnvMap(data []byte, cfg *config.Config) (map[string]string, erro
 	return envMap, nil
 }
 
-// formatEnvFile formats env map back to file content
-func formatEnvFile(envMap map[string]string) string {
-	var lines []string
-	for key, value := range envMap {
-		lines = append(lines, fmt.Sprintf("%s=%s", key, value))
-	}
-	return strings.Join(lines, "\n") + "\n"
-}
-
 // diffEnvMaps compares two env maps and returns added, removed, and changed keys
 func diffEnvMaps(oldMap, newMap map[string]string) (added, removed, changed map[string]string) {
 	added = make(map[string]string)
