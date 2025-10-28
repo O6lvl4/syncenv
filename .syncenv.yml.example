@@ -1,0 +1,36 @@
+# syncenv configuration example
+# Copy this file to .syncenv.yml and configure for your environment
+
+storage:
+  # Storage type: s3, azure, or gcs
+  type: s3
+
+  # Optional path prefix for organizing multiple projects
+  prefix: envs/
+
+  # AWS S3 configuration (when type: s3)
+  bucket: my-syncenv-bucket
+  region: us-west-2
+
+  # Azure Blob Storage configuration (when type: azure)
+  # account_name: mystorageaccount
+  # container_name: syncenv
+
+  # Google Cloud Storage configuration (when type: gcs)
+  # project_id: my-gcp-project
+  # bucket_name: my-syncenv-bucket
+
+encryption:
+  # Enable/disable encryption
+  enabled: true
+  # Encryption key will be auto-generated during 'syncenv init'
+  # Example: key: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+
+# Single environment file
+env_file: .env
+
+# Or multiple environment files (comment out env_file if using this)
+# env_files:
+#   - .env
+#   - .env.local
+#   - config/database/settings.json
