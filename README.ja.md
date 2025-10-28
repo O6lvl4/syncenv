@@ -21,7 +21,7 @@
 ## 特徴
 
 - **Git連携**: タグ/ブランチから自動判定
-- **マルチクラウド**: AWS S3、Azure Blob、GCS対応
+- **マルチクラウド**: AWS S3、Azure Blob、Google Cloud対応
 - **複数ファイル対応**: 複数の環境ファイルを同時に管理（`.env`、`.env.local`、`config/*.json`など）
 - **パスサポート**: サブディレクトリ内のファイルにも対応、ディレクトリ自動作成
 - **セキュア**: AES-256-GCM暗号化サポート
@@ -121,9 +121,17 @@ env_files:
 
 ## クラウドプロバイダーの設定
 
-### AWS S3
+お好みのクラウドプロバイダーを選択し、以下の設定手順に従ってください。
 
-AWS認証情報を設定:
+---
+
+### オプション1: AWS S3
+
+**おすすめ:** AWSインフラを既に使用しているチーム
+
+**設定方法:**
+
+環境変数でAWS認証情報を設定:
 
 ```bash
 export AWS_ACCESS_KEY_ID=your_access_key
@@ -136,26 +144,62 @@ export AWS_SECRET_ACCESS_KEY=your_secret_key
 aws configure
 ```
 
-### Azure Blob Storage
-
-接続文字列を設定:
-
-```bash
-export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=..."
+**設定ファイルの例:**
+```yaml
+storage:
+  type: s3
+  bucket: my-syncenv-bucket
+  region: us-west-2
+  prefix: envs/  # オプション
 ```
 
-### Google Cloud Storage
+---
 
-GCPの認証情報を設定:
+### オプション2: Azure Blob Storage
+
+**おすすめ:** Microsoft Azureエコシステムを使用しているチーム
+
+**設定方法:**
+
+Azure接続文字列を設定:
+
+```bash
+export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
+```
+
+**設定ファイルの例:**
+```yaml
+storage:
+  type: azure
+  container_name: my-syncenv-container
+```
+
+---
+
+### オプション3: Google Cloud
+
+**おすすめ:** Google Cloud Platformを使用しているチーム
+
+**設定方法:**
+
+Google Cloud認証情報を設定:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
 ```
 
-または、gcloudで認証:
+または、gcloud CLIで認証:
 
 ```bash
 gcloud auth application-default login
+```
+
+**設定ファイルの例:**
+```yaml
+storage:
+  type: gcs
+  project_id: my-project
+  bucket_name: my-syncenv-bucket
 ```
 
 ## コマンド
@@ -229,7 +273,7 @@ syncenv/
 │   ├── storage/         # クラウドストレージ実装
 │   │   ├── s3.go       # AWS S3
 │   │   ├── azure.go    # Azure Blob
-│   │   ├── gcs.go      # Google Cloud Storage
+│   │   ├── gcs.go      # Google Cloud
 │   │   └── mock.go     # テスト用モックストレージ
 │   └── cli/            # CLIコマンド
 ├── README.md           # 英語ドキュメント
@@ -276,6 +320,6 @@ syncenv pull  # v1.5の環境設定ファイルを自動取得
 **プロジェクトステータス**: プロダクション準備完了 ✅
 
 テスト済み:
-- ✅ Google Cloud Storage
+- ✅ Google Cloud
 - ✅ Azure Blob Storage
 - ⏳ AWS S3（実装完了、実環境テスト待ち）

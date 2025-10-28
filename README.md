@@ -8,7 +8,7 @@ Version-controlled environment variable management with cloud storage
 
 ## Overview
 
-**syncenv** is a CLI tool for managing environment configuration files across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud Storage).
+**syncenv** is a CLI tool for managing environment configuration files across different versions of your application by syncing them with cloud storage (AWS S3, Azure Blob, or Google Cloud).
 
 ## Elevator Pitch (30 seconds)
 
@@ -21,7 +21,7 @@ Ever struggled with "it works on v1.5 for me, but the new team member can't run 
 ## Features
 
 - **Git Integration**: Automatically detects current tag/branch
-- **Multi-Cloud**: Supports AWS S3, Azure Blob Storage, and Google Cloud Storage
+- **Multi-Cloud**: Supports AWS S3, Azure Blob Storage, and Google Cloud
 - **Multiple Files**: Manage multiple environment files simultaneously (`.env`, `.env.local`, `config/*.json`, etc.)
 - **Path Support**: Supports files in subdirectories with automatic directory creation
 - **Secure**: Optional AES-256-GCM encryption
@@ -121,41 +121,85 @@ When encryption is enabled, an encryption key is **automatically generated** and
 
 ## Cloud Provider Setup
 
-### AWS S3
+Choose your preferred cloud provider and follow the setup instructions below.
 
-Configure AWS credentials:
+---
+
+### Option 1: AWS S3
+
+**Best for:** Teams already using AWS infrastructure
+
+**Configuration:**
+
+Set AWS credentials using environment variables:
 
 ```bash
 export AWS_ACCESS_KEY_ID=your_access_key
 export AWS_SECRET_ACCESS_KEY=your_secret_key
 ```
 
-Or use AWS CLI:
+Or use AWS CLI to configure:
 
 ```bash
 aws configure
 ```
 
-### Azure Blob Storage
-
-Set connection string:
-
-```bash
-export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=..."
+**Configuration file example:**
+```yaml
+storage:
+  type: s3
+  bucket: my-syncenv-bucket
+  region: us-west-2
+  prefix: envs/  # optional
 ```
 
-### Google Cloud Storage
+---
 
-Set GCP credentials:
+### Option 2: Azure Blob Storage
+
+**Best for:** Teams using Microsoft Azure ecosystem
+
+**Configuration:**
+
+Set Azure connection string:
+
+```bash
+export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
+```
+
+**Configuration file example:**
+```yaml
+storage:
+  type: azure
+  container_name: my-syncenv-container
+```
+
+---
+
+### Option 3: Google Cloud
+
+**Best for:** Teams using Google Cloud Platform
+
+**Configuration:**
+
+Set Google Cloud credentials:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
 ```
 
-Or authenticate with gcloud:
+Or authenticate with gcloud CLI:
 
 ```bash
 gcloud auth application-default login
+```
+
+**Configuration file example:**
+```yaml
+storage:
+  type: gcs
+  project_id: my-project
+  bucket_name: my-syncenv-bucket
 ```
 
 ## Commands
@@ -229,7 +273,7 @@ syncenv/
 │   ├── storage/         # Cloud storage implementations
 │   │   ├── s3.go       # AWS S3
 │   │   ├── azure.go    # Azure Blob
-│   │   ├── gcs.go      # Google Cloud Storage
+│   │   ├── gcs.go      # Google Cloud
 │   │   └── mock.go     # Mock storage for testing
 │   └── cli/            # CLI commands
 ├── README.md           # This file (English)
@@ -256,6 +300,6 @@ For issues, questions, or feature requests, please open an issue on GitHub.
 **Project Status**: Production Ready ✅
 
 Successfully tested with:
-- ✅ Google Cloud Storage
+- ✅ Google Cloud
 - ✅ Azure Blob Storage
 - ⏳ AWS S3 (implementation complete, pending real-world testing)
